@@ -19,7 +19,8 @@ export default new Vuex.Store({
   state: {
     user: {},
     spellBooks: [],
-    activeBook: {}
+    activeBook: {},
+    spells: []
   },
   mutations: {
     SETUSER(state, user) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     setActiveBook(state, book) {
       state.activeBook = book
+    },
+    setSpells(state, spells) {
+      state.spells = spells
     }
 
   },
@@ -87,6 +91,13 @@ export default new Vuex.Store({
         .then(res => {
           let book = res.data
           commit('setActiveBook', book)
+        })
+    },
+    getSpells({ commit }) {
+      spellApi.get('spells')
+        .then(res => {
+          console.log('All Spells from API', res.data)
+          commit('setSpells', res.data)
         })
     }
   }
